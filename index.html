@@ -129,7 +129,7 @@
             border: none;
         }
 
-        /* Pulsante Mobile */
+        /* Pulsante Mobile "Sacro Rotolo" */
         .mobile-btn {
             display: none;
             margin-top: 10px;
@@ -145,27 +145,29 @@
             text-align: center;
         }
 
-        /* NUOVO: Bottone Community */
+        /* Bottone Community FISSO */
         .btn-community {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background-color: #4a4a4a; /* Grigio mattone */
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 8px;
             text-decoration: none;
             font-family: 'MedievalSharp', cursive;
-            font-size: 0.75rem; /* Grandezza piccola */
+            font-size: 0.85rem;
             border: 1px solid #ffcc00;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            z-index: 9999; /* Sempre sopra a tutto */
             transition: all 0.3s ease;
+            display: block;
         }
 
         .btn-community:hover {
             background-color: #333333;
             transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,1);
         }
 
         /* --- LOGICA PER MOBILE --- */
@@ -187,7 +189,7 @@
             .sidebar:last-of-type {
                 order: 3;
                 margin-top: 20px;
-                margin-bottom: 80px; /* Spazio extra per non coprire il bottone community */
+                margin-bottom: 120px; /* Spazio per non coprire il testo finale */
             }
 
             .pdf-container {
@@ -217,12 +219,15 @@
                 font-size: 1.5rem;
             }
 
+            /* Bottone Community Mobile - Sempre visibile */
             .btn-community {
-                width: 60%;
+                bottom: 15px;
+                right: 15px;
+                font-size: 0.75rem;
+                padding: 10px 14px;
+                max-width: 160px; /* Per non farlo occupare tutto lo schermo */
                 text-align: center;
-                right: 50%;
-                transform: translateX(50%);
-                bottom: 10px;
+                line-height: 1.2;
             }
         }
     </style>
@@ -266,7 +271,7 @@
 
     </div>
 
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7RAC9hjnNFmZ8o4Ni7mXXm-uzP_ZXEx7IlxS0fvpEnPxSpg/viewform?usp=publish-editor" target="_blank" class="btn-community">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7RAC9hjnNFmZ8o4Ni7mXXm-uzP_ZXEx7IlxS0fvpEnPxSpg/viewform?usp=header" target="_blank" class="btn-community">
         Vuoi unirti alla nostra community? Clicca qui !
     </a>
 
