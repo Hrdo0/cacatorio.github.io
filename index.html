@@ -50,18 +50,18 @@
             align-items: flex-start;
             width: 95%;
             max-width: 1400px;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 50px;
         }
 
-        /* Sidebar Laterali */
+        /* Sidebar Laterali Ingrandite */
         .sidebar {
-            flex: 1;
-            max-width: 200px;
+            flex: 1.2; /* Aumentato il peso della sidebar */
+            max-width: 280px; /* Limite massimo più generoso */
             background: rgba(0, 0, 0, 0.7);
             border: 4px double #ffcc00;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
@@ -70,13 +70,18 @@
             width: 100%;
             height: auto;
             border-radius: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ffcc00;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar img:hover {
+            transform: scale(1.05); /* Effetto zoom al passaggio del mouse */
         }
 
         .sidebar p {
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 1.3rem; /* Testo leggermente più grande */
             color: #ffcc00;
             margin: 0;
         }
@@ -117,46 +122,54 @@
         /* Pulsante Mobile */
         .mobile-btn {
             display: none;
-            margin-top: 20px;
-            padding: 15px 25px;
+            margin-top: 10px;
+            padding: 20px 40px;
             background: #ffcc00;
             color: #000;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 5px;
+            font-size: 1.5rem;
+            border-radius: 10px;
             font-family: 'Cinzel', serif;
             box-shadow: 0 4px 15px rgba(255,204,0,0.4);
+            text-align: center;
         }
 
-        /* Responsive */
+        /* --- LOGICA SOLO PER MOBILE --- */
         @media (max-width: 1024px) {
             .main-container {
                 flex-direction: column;
                 align-items: center;
             }
 
+            /* NASCONDE IL READER SU MOBILE */
+            .pdf-container {
+                display: none;
+            }
+
+            /* MOSTRA IL PULSANTONE */
+            .mobile-btn {
+                display: block;
+                width: 80%;
+                margin-bottom: 40px;
+            }
+
             .sidebar {
-                max-width: 80%;
+                max-width: 90%;
+                width: 90%;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
-                gap: 20px;
-                order: 2; /* Sposta le sidebar sotto il PDF */
+                margin-bottom: 20px;
             }
 
             .sidebar img {
-                width: 80px;
-                margin-bottom: 0;
+                width: 70%; /* Immagini grandi anche su mobile */
+                max-width: 300px;
             }
-
-            .pdf-container {
-                height: 50vh;
-                order: 1;
-            }
-
-            .mobile-btn {
-                display: inline-block;
-                order: 1;
-                margin-bottom: 20px;
+            
+            .sidebar p {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -172,7 +185,7 @@
         
         <aside class="sidebar">
             <img src="immagine_sx.png" alt="Icona Sinistra">
-            <p>First Best Shitter</p>
+            <p>Antico Vigore</p>
         </aside>
 
         <div class="content-center">
@@ -184,7 +197,7 @@
                 </audio>
             </div>
 
-            <a href="pdf_cacatorio.pdf" target="_blank" class="mobile-btn">APRI IL SACRO PDF</a>
+            <a href="pdf_cacatorio.pdf" target="_blank" class="mobile-btn">📜 APRI IL SACRO ROTOLO</a>
 
             <div class="pdf-container">
                 <iframe src="pdf_cacatorio.pdf#toolbar=0&view=FitH" title="Classifica Cacatoria"></iframe>
@@ -194,7 +207,7 @@
 
         <aside class="sidebar">
             <img src="immagine_dx.png" alt="Icona Destra">
-            <p>Christmas Winner</p>
+            <p>Gloria Eterna</p>
         </aside>
 
     </div>
