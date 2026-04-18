@@ -76,12 +76,12 @@
         }
         
         .sidebar img:hover {
-            transform: scale(1.05); /* Effetto zoom al passaggio del mouse */
+            transform: scale(1.05);
         }
 
         .sidebar p {
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem; /* Testo leggermente più grande */
+            font-size: 1.3rem;
             color: #ffcc00;
             margin: 0;
         }
@@ -97,10 +97,20 @@
 
         .audio-section {
             margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
-            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 20px;
             border: 2px solid #ffcc00;
+            text-align: center;
+        }
+
+        .audio-title {
+            font-family: 'Cinzel', serif;
+            color: #ffcc00;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .pdf-container {
@@ -135,19 +145,37 @@
             text-align: center;
         }
 
-        /* --- LOGICA SOLO PER MOBILE --- */
+        /* --- LOGICA PER MOBILE --- */
         @media (max-width: 1024px) {
             .main-container {
                 flex-direction: column;
                 align-items: center;
             }
 
-            /* NASCONDE IL READER SU MOBILE */
+            /* Ordine Mobile: Audio/Bottone (1), SX (2), DX (3) */
+            .content-center {
+                order: 1;
+            }
+
+            .sidebar:nth-of-type(1) {
+                order: 2;
+                margin-top: 20px;
+            }
+
+            .sidebar:nth-of-type(3) { /* nth-of-type conta tutti gli elementi fratelli */
+                order: 3;
+                margin-top: 20px;
+            }
+            
+            /* In alternativa, usando le classi se necessario, ma nth-of-type su aside/sidebar funziona */
+            aside.sidebar:last-of-type {
+                order: 3;
+            }
+
             .pdf-container {
                 display: none;
             }
 
-            /* MOSTRA IL PULSANTe */
             .mobile-btn {
                 display: block;
                 width: 80%;
@@ -164,7 +192,7 @@
             }
 
             .sidebar img {
-                width: 70%; /* Immagini grandi anche su mobile */
+                width: 70%;
                 max-width: 300px;
             }
             
@@ -191,6 +219,7 @@
         <div class="content-center">
             
             <div class="audio-section">
+                <h3 class="audio-title">Ascolta gli ultimi aggiornamenti !</h3>
                 <audio controls loop>
                     <source src="audio_cacatorio.mp3?v=1" type="audio/mpeg">
                     Il tuo browser non supporta l'audio.
