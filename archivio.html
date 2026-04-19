@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #2c1b0e url('img/background_cacatorio.png') no-repeat center center fixed;
+            background: #2c1b0e url('img/background_archive.png') no-repeat center center fixed;
             background-size: cover;
             font-family: 'MedievalSharp', cursive;
             color: white;
@@ -188,7 +188,7 @@
         let currentPath = [];
 
         // Load JSON
-        fetch('shitRegisterGlobal.json')
+        fetch('shit_files/shitRegisterGlobal.json')
             .then(response => response.json())
             .then(data => {
                 fullData = data;
