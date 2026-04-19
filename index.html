@@ -130,6 +130,29 @@
             border: none;
         }
 
+        .archive-btn {
+            display: block;
+            margin: 10px auto 25px auto;
+            padding: 15px 30px;
+            background: #ffcc00;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border: 2px solid #000;
+            border-radius: 10px;
+            font-family: 'Cinzel', serif;
+            box-shadow: 0 4px 15px rgba(255,204,0,0.4);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: fit-content;
+        }
+
+        .archive-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255,204,0,0.8);
+        }
+
         /* Pulsante Mobile "Sacro Rotolo" */
         .mobile-btn {
             display: none;
@@ -257,11 +280,12 @@
                 </audio>
             </div>
 
-            <a href="pdf_cacatorio.pdf" target="_blank" class="mobile-btn">
-CONSULTA IL ROTOLO CACATORIO🧻</a>
+            <a href="archivio.html" class="archive-btn">📜 APRI L'ARCHIVIO DELLE GESTA 📜</a>
+
+            <a href="shit_files/pdf_cacatorio.pdf" target="_blank" class="mobile-btn">CONSULTA IL ROTOLO CACATORIO🧻</a>
 
             <div class="pdf-container">
-                <iframe src="shit_files/pdf_cacatorio.pdf" title="Classifica Cacatoria"></iframe>
+                <iframe src="shit_files/pdf_cacatorio.pdf#toolbar=0" title="Classifica Cacatoria"></iframe>
             </div>
 
         </div>

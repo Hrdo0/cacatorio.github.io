@@ -3,7 +3,7 @@ import base64
 import json
 
 file_path = f"G:\Il mio Drive\ChatScriptShit\shit_reports\Shit_Tracker_31_3.pdf"
-TOKEN = "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"
+
 git_name = "pdf_cacatorio.pdf"
 
 def upload_to_github_api(file_path,git_name, token, branch="main"):

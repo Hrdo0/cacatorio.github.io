@@ -373,51 +373,53 @@ def createPdf(bathroom,data_inizio,data_fine,upload = False):
             bargraph.addGraph2Pdf(pdf)
 
         print(f"PDF Creato con Successo: {filename}")
-        
-    if upload:
+
+   
+
+    # if upload:
        
-       token = "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"
-       repo_owner="Hrdo0"
-       repo_name="cacatorio.github.io"
        
-       with open(filename, "rb") as file:
-            content = file.read()
+    #    repo_owner="Hrdo0"
+    #    repo_name="cacatorio.github.io"
+       
+    #    with open(filename, "rb") as file:
+    #         content = file.read()
 
  
-            content_base64 = base64.b64encode(content).decode("utf-8")
+    #         content_base64 = base64.b64encode(content).decode("utf-8")
 
-            #creo url
-            file_name_in_repo = "pdf_cacatorio.pdf"
-            url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_name_in_repo}"
+    #         #creo url
+    #         file_name_in_repo = "pdf_cacatorio.pdf"
+    #         url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_name_in_repo}"
 
-            headers = {
-                "Authorization": f"token {token}",
-                "Accept": "application/vnd.github.v3+json"
-            }
+    #         headers = {
+    #             "Authorization": f"token {token}",
+    #             "Accept": "application/vnd.github.v3+json"
+    #         }
 
-          # controllare se il file esiste già per ottenere il suo 'sha' 
-            # (GitHub lo richiede per sovrascrivere file esistenti)
-            response = requests.get(url, headers=headers)
-            sha = ""
-            if response.status_code == 200:
-                sha = response.json().get("sha", "")
+    #       # controllare se il file esiste già per ottenere il suo 'sha' 
+    #         # (GitHub lo richiede per sovrascrivere file esistenti)
+    #         response = requests.get(url, headers=headers)
+    #         sha = ""
+    #         if response.status_code == 200:
+    #             sha = response.json().get("sha", "")
 
-            # 5. Prepariamo i dati per l'invio
-            data = {
-                "message": "Update automatico via script",
-                "content": content_base64,
-                "branch": "main"
-            }
-            if sha:
-                data["sha"] = sha # NPermette sovrascitt se il file esiste già
+    #         # 5. Prepariamo i dati per l'invio
+    #         data = {
+    #             "message": "Update automatico via script",
+    #             "content": content_base64,
+    #             "branch": "main"
+    #         }
+    #         if sha:
+    #             data["sha"] = sha # NPermette sovrascitt se il file esiste già
 
-            # Send
-            put_response = requests.put(url, headers=headers, data=json.dumps(data))
+    #         # Send
+    #         put_response = requests.put(url, headers=headers, data=json.dumps(data))
 
-            if put_response.status_code in [200, 201]:
-                print(f"File '{file_name_in_repo}' caricato con successo!")
-            else:
-                print(f"Errore: {put_response.json()}")
+    #         if put_response.status_code in [200, 201]:
+    #             print(f"File '{file_name_in_repo}' caricato con successo!")
+    #         else:
+    #             print(f"Errore: {put_response.json()}")
 
 
     
