@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #2c1b0e url('background_cacatorio.png') no-repeat center center fixed;
+            background: #2c1b0e url('img/background_cacatorio.png') no-repeat center center fixed;
             background-size: cover;
             font-family: 'MedievalSharp', cursive;
             color: white;
@@ -50,10 +50,20 @@
         }
 
         .btn-mode.active { background: #ffcc00; color: black; }
+        .btn-mode:hover { background: #ffcc00; color: black; }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between; /* Spinge il percorso a sx e il tasto a dx */
+            align-items: center;
+            margin-bottom: 20px;
+            min-height: 50px;
+            gap: 10px;
+            flex-wrap: wrap; /* Se non c'è spazio, il pulsante va sotto ma non si sovrappone */
+        }
 
         .breadcrumb {
             color: #aaa;
-            margin-bottom: 20px;
             font-size: 0.9rem;
         }
 
@@ -92,6 +102,63 @@
             color: #ffcc00;
             text-decoration: none;
             font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Calculator Styles */
+        .calc-form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .calc-inputs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medieval-input {
+            background: #2c1b0e;
+            color: #ffcc00;
+            border: 1px solid #ffcc00;
+            padding: 8px;
+            font-family: 'MedievalSharp', cursive;
+            border-radius: 4px;
+        }
+
+        .parchment {
+            background: #f4e4bc;
+            color: #2c1b0e;
+            padding: 40px;
+            margin-top: 30px;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            border: 1px solid #d2b48c;
+            max-width: 500px;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 100%);
+        }
+
+        /* Burnt edge effect */
+        .parchment::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 30px rgba(139, 69, 19, 0.3);
+            pointer-events: none;
+        }
+
+        .parchment h2 {
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            border-bottom: 2px solid #2c1b0e;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -100,25 +167,28 @@
     <h1>📜 L'ARCHIVIO DELLE GESTA 📜</h1>
 
     <div class="mode-selector">
-        <button class="btn-mode active" onclick="setMode('ByDateFormat')">SFOGLIA PER DATA</button>
-        <button class="btn-mode" onclick="setMode('ByShitterFormat')">SFOGLIA PER UTENTE</button>
+        <button id="btn-date" class="btn-mode active" onclick="setMode('ByDateFormat')">SFOGLIA PER DATA</button>
+        <button id="btn-shitter" class="btn-mode" onclick="setMode('ByShitterFormat')">SFOGLIA PER UTENTE</button>
     </div>
 
     <div class="book-container">
-        <div id="breadcrumb" class="breadcrumb"></div>
-        <div id="display-area" class="grid-container">
-            </div>
+        <div class="header-actions">
+            <div id="breadcrumb" class="breadcrumb"></div> <button id="btn-calculator" class="btn-mode" style="display: none; padding: 5px 15px;" onclick="openCalculator()">CALCOLATORE</button>
+        </div>
+        
+        <div id="display-area" class="grid-container"></div>
+        <div id="calculator-area" style="display: none;"></div>
     </div>
 
-    <a href="index.html" class="back-home">⬅ Torna al Sacro Rotolo</a>
+    <a onclick="location.reload()" class="back-home">⬅ Torna al Sacro Rotolo</a>
 
     <script>
         let fullData = {};
         let currentMode = 'ByDateFormat';
         let currentPath = [];
 
-        // Carica il JSON
-        fetch('shit_files/shitRegisterGlobal.json')
+        // Load JSON
+        fetch('shitRegisterGlobal.json')
             .then(response => response.json())
             .then(data => {
                 fullData = data;
@@ -128,35 +198,39 @@
         function setMode(mode) {
             currentMode = mode;
             currentPath = [];
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.toggle('active'));
+            document.getElementById('btn-date').classList.toggle('active', mode === 'ByDateFormat');
+            document.getElementById('btn-shitter').classList.toggle('active', mode === 'ByShitterFormat');
+            
+            document.getElementById('display-area').style.display = 'grid';
+            document.getElementById('calculator-area').style.display = 'none';
             render();
         }
 
         function render() {
             const area = document.getElementById('display-area');
             const bread = document.getElementById('breadcrumb');
+            const calcBtn = document.getElementById('btn-calculator');
             area.innerHTML = '';
             
-            // Costruisci il percorso dei dati
+            calcBtn.style.display = (currentMode === 'ByShitterFormat') ? 'block' : 'none';
+
             let dataLevel = fullData[currentMode];
             currentPath.forEach(key => {
                 dataLevel = dataLevel[key];
             });
 
-            // Render Breadcrumbs
+            // Breadcrumbs
             bread.innerHTML = `<span onclick="goToPath(-1)">Home</span> `;
             currentPath.forEach((step, index) => {
                 bread.innerHTML += ` > <span onclick="goToPath(${index})">${step}</span>`;
             });
 
-            // Se è un array (ovvero siamo arrivati alle ore)
             if (Array.isArray(dataLevel)) {
-                area.style.display = 'block'; // Lista semplice per le ore
+                area.style.display = 'block';
                 dataLevel.forEach(ora => {
                     area.innerHTML += `<div class="time-badge">🕒 ${ora}</div>`;
                 });
             } else {
-                // Se è un oggetto (chiavi cliccabili)
                 area.style.display = 'grid';
                 Object.keys(dataLevel).forEach(key => {
                     const card = document.createElement('div');
@@ -172,8 +246,87 @@
         }
 
         function goToPath(index) {
+            document.getElementById('display-area').style.display = 'grid';
+            document.getElementById('calculator-area').style.display = 'none';
             currentPath = currentPath.slice(0, index + 1);
             render();
+        }
+
+        // --- Calculator Logic ---
+
+        function openCalculator() {
+            document.getElementById('display-area').style.display = 'none';
+            const calcArea = document.getElementById('calculator-area');
+            calcArea.style.display = 'block';
+
+            const shitters = Object.keys(fullData.ByShitterFormat || {});
+            const options = shitters.map(s => `<option value="${s}">${s}</option>`).join('');
+
+            calcArea.innerHTML = `
+                <div class="calc-form-container">
+                    <div class="calc-inputs">
+                        <select id="sel-shitter" class="medieval-input">${options}</select>
+                        <input type="date" id="date-start" class="medieval-input">
+                        <input type="date" id="date-end" class="medieval-input">
+                        <button class="btn-mode" style="padding: 5px 15px;" onclick="calculateStats()">CALCOLA</button>
+                    </div>
+                    <div id="result-container"></div>
+                </div>
+            `;
+        }
+
+        function calculateStats() {
+            const shitter = document.getElementById('sel-shitter').value;
+            const startStr = document.getElementById('date-start').value;
+            const endStr = document.getElementById('date-end').value;
+
+            if (!startStr || !endStr) return alert("Scegli le date, nobile messere!");
+
+            let start = new Date(startStr);
+            let end = new Date(endStr);
+            if (start > end) return alert("La data d'inizio non può essere futura rispetto alla fine!");
+
+            let total = 0;
+            let activeDays = 0;
+            let totalDays = 0;
+
+            let current = new Date(start);
+            const data = fullData.ByShitterFormat[shitter];
+
+            while (current <= end) {
+                totalDays++;
+                const year = current.getFullYear().toString();
+                const monthName = current.toLocaleString('en-US', { month: 'long' });
+                
+                // Format DD/MM/YY
+                const d = String(current.getDate()).padStart(2, '0');
+                const m = String(current.getMonth() + 1).padStart(2, '0');
+                const yShort = year.slice(-2);
+                const dayKey = `${d}/${m}/${yShort}`;
+
+                if (data?.[year]?.[monthName]?.[dayKey]) {
+                    const count = data[year][monthName][dayKey].length;
+                    if (count > 0) {
+                        total += count;
+                        activeDays++;
+                    }
+                }
+                current.setDate(current.getDate() + 1);
+            }
+
+            const meanTheo = activeDays > 0 ? (total / activeDays).toFixed(2) : 0;
+            const meanArith = totalDays > 0 ? (total / totalDays).toFixed(2) : 0;
+
+            document.getElementById('result-container').innerHTML = `
+                <div class="parchment">
+                    <h2>Resoconto Gesta</h2>
+                    <p><strong>Cacatore:</strong> ${shitter}</p>
+                    <p><strong>Periodo:</strong> ${startStr} / ${endStr}</p>
+                    <p><strong>Cacate Totali:</strong> ${total}</p>
+                    <p><strong>Media Teorica:</strong> ${meanTheo}</p>
+                    <p><strong>Media Aritmetica:</strong> ${meanArith}</p>
+                </div>
+            `;
         }
     </script>
 </body>
