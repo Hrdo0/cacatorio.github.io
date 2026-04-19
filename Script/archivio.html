@@ -54,10 +54,12 @@
 
         .header-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Spinge il percorso a sx e il tasto a dx */
             align-items: center;
             margin-bottom: 20px;
-            min-height: 40px;
+            min-height: 50px;
+            gap: 10px;
+            flex-wrap: wrap; /* Se non c'è spazio, il pulsante va sotto ma non si sovrappone */
         }
 
         .breadcrumb {
@@ -171,10 +173,9 @@
 
     <div class="book-container">
         <div class="header-actions">
-            <div id="breadcrumb" class="breadcrumb"></div>
-            <button id="btn-calculator" class="btn-mode" style="display: none; padding: 5px 15px;" onclick="openCalculator()">CALCOLATORE</button>
+            <div id="breadcrumb" class="breadcrumb"></div> <button id="btn-calculator" class="btn-mode" style="display: none; padding: 5px 15px;" onclick="openCalculator()">CALCOLATORE</button>
         </div>
-
+        
         <div id="display-area" class="grid-container"></div>
         <div id="calculator-area" style="display: none;"></div>
     </div>
