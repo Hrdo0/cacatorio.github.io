@@ -1,0 +1,11 @@
+# Nascondi la chiave API
+Script\api_key.txt
+
+# Nascondi eventuali file di log o chat sensibili
+Script/Chat WhatsApp con cacatorio.txt
+
+# Nascondi cartelle temporanee di Python
+__pycache__/
+*.pyc
+Script\__pycache__/
+Script\*.pyc
