@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Archivio Segreto - Classifica Cacatoria</title>
+    <title>L'Archivio Segreto Cacatorio</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #2c1b0e url('img/background_archive.png') no-repeat center center fixed;
+            background: #2c1b0e url('img/background_archive.jpeg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'MedievalSharp', cursive;
             color: white;
@@ -164,16 +164,16 @@
 </head>
 <body>
 
-    <h1>📜 L'ARCHIVIO DELLE GESTA 📜</h1>
+    <h1> 🪠 ARCHIVUM CACATORIBUS 🚽 </h1>
 
     <div class="mode-selector">
-        <button id="btn-date" class="btn-mode active" onclick="setMode('ByDateFormat')">SFOGLIA PER DATA</button>
-        <button id="btn-shitter" class="btn-mode" onclick="setMode('ByShitterFormat')">SFOGLIA PER UTENTE</button>
+        <button id="btn-date" class="btn-mode active" onclick="setMode('ByDateFormat')">SFOGLIA PER DATA 🚻</button>
+        <button id="btn-shitter" class="btn-mode" onclick="setMode('ByShitterFormat')">SFOGLIA PER UTENTE 🚾</button>
     </div>
 
     <div class="book-container">
         <div class="header-actions">
-            <div id="breadcrumb" class="breadcrumb"></div> <button id="btn-calculator" class="btn-mode" style="display: none; padding: 5px 15px;" onclick="openCalculator()">CALCOLATORE</button>
+            <div id="breadcrumb" class="breadcrumb"></div> <button id="btn-calculator" class="btn-mode" style="display: none; padding: 5px 15px;" onclick="openCalculator()">🚽 CALCOLATORE 🚽</button>
         </div>
         
         <div id="display-area" class="grid-container"></div>
@@ -319,12 +319,12 @@
 
             document.getElementById('result-container').innerHTML = `
                 <div class="parchment">
-                    <h2>Resoconto Gesta</h2>
+                    <h2>Dati Cacatorici</h2>
                     <p><strong>Cacatore:</strong> ${shitter}</p>
                     <p><strong>Periodo:</strong> ${startStr} / ${endStr}</p>
                     <p><strong>Cacate Totali:</strong> ${total}</p>
-                    <p><strong>Media Teorica:</strong> ${meanTheo}</p>
-                    <p><strong>Media Aritmetica:</strong> ${meanArith}</p>
+                    <p><strong>Media Teorica:</strong> ${meanTheo} cacate/giorno</p>
+                    <p><strong>Media Aritmetica:</strong> ${meanArith} cacate/giorno</p>
                 </div>
             `;
         }
