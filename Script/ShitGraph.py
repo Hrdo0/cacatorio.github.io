@@ -346,7 +346,7 @@ def createPdf(bathroom,data_inizio,data_fine,upload = False):
     
     with PdfPages(filename) as pdf:
         fig, ax = plt.subplots()
-        image = "Shit_image.png"
+        image = "img\background_cacatorio.png"
         if os.path.exists(image):
             img = plt.imread(image)
             ax.imshow(img, extent=[0, 1, 0, 1], alpha=0.2)

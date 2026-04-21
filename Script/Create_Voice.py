@@ -1,6 +1,5 @@
 
-from google import genai
-from google.genai import types # Importiamo anche i tipi per la configurazione
+#from google import genai
 import edge_tts
 import asyncio
 import os
@@ -25,21 +24,21 @@ sub_prompt = '''
 La seguente è una classifica cacatoria, ogni numero corrisponde al numero di cacate che ha fatto una persona nell'arco di un mese,commentala come se fossi un telecronista sportivo particolarmente scurrile e colorito. Il testo che mi restituirai verrà dato in pasto ad un text-to-speech quindi non usare emoji e non essere particolarmente prolisso, non usare termini inglesi e non usare simboli come "*" o "#":\n
 '''
 classifica = '''
-Lellino : 64
- giulia Zizzania : 36
-Antonio : 32
-Maria Frittatina : 19
- Martina Stinga : 17
- Peppe DR : 17
- Massimiliano : 16
- Mota : 15
-Erika : 12
- Peppe Catalano : 12
- Dario : 10
+Lellino : 77
+ giulia Zizzania : 45
+Antonio : 39
+Maria Frittatina : 22
+Martina Stinga : 22
+ Massimiliano : 21
+ Peppe DR : 21
+ Mota : 20
+Erika : 13
+Peppe Catalano : 12
+ Dario : 12
+ Giulia Aprea : 10
+Valerio : 6
  Gian : 6
- Giulia Aprea : 4
- Valerio : 2
- Roberto Ripa : 1
+Roberto Ripa : 1
  '''
 
 def list_my_models(api_key):
@@ -57,7 +56,7 @@ def list_my_models(api_key):
 
 def get_comment_from_gemini(prompt: str) -> str:
     def get_api_key():
-        with open("key.txt", "r") as f:
+        with open("Script/api_key.txt", "r") as f:
             return f.read().strip()
     # gemini-2.5-flash 
     api_key = get_api_key()
@@ -144,9 +143,22 @@ if __name__ == "__main__":
     it-IT-ElsaNeural - Genere: Female
     it-IT-IsabellaNeural - Genere: Female
     '''
-    prompt = "Dimmi quattro parole"
+    prompt = '''Signori, signore, che spettacolo! Qui siamo in diretta per la classifica cacatoria del mese, e vi dico già che c'è stato un vero e proprio terremoto nel gabinetto!
+
+Il campione indiscusso, il Re della tazza, Lellino! Settantasette scariche, settantasette bombe, ha polverizzato la concorrenza! Un uragano intestinale che ha lasciato tutti a bocca aperta e chiappe strette!
+
+Sul secondo gradino del podio, si piazza Giulia Zizzania, con 45 sgasate di tutto rispetto. Ha cercato di tenere il ritmo, ma Lellino è un altro pianeta! E che dire di Antonio? Trentanove scariche, ha lottato con le unghie e con i denti per la zona podio, ma ha dovuto cedere il passo!
+
+Poi abbiamo un bel gruppo compatto, una mischia furibonda! Maria Frittatina e Martina Stinga, un pari merito a 22 che sa di spareggio. Poco dietro, Massimiliano e Peppe DR, a 21, si sono dati battaglia per un punto, quasi gomito a gomito nel cesso! Mota, lì vicino a 20, si è difeso con onore, ma è rimasto staccato dal treno che contava.
+
+Erika con 13 ha cercato di farsi vedere, ma è rimasta nelle retrovie. Peppe Catalano e Dario, un altro pari merito a 12, si sono accontentati di un piazzamento senza infamia e senza lode. Giulia Aprea, a quota 10, ha provato qualche allungo, ma non ha mai impensierito i primi!
+
+E veniamo alle note dolenti, ai fantasmi del gabinetto! Valerio e Gian, a quota 6, hanno fatto il minimo sindacale, direi quasi... una cacata a settimana, che tristezza! Ma il cucchiaio di legno, il premio per la svogliatezza, va a lui: Roberto Ripa! Signori, UNA CACATA! UN'UNICA SCARICA IN UN MESE INTERO! Ma cos'hai mangiato, sassi? Dormivi sulla tazza? Una performance così imbarazzante che ci si chiede se abbia capito le regole del gioco!
+
+Insomma, Lellino domina incontrastato, mentre per Roberto Ripa ci vuole un corso accelerato di igiene e alimentazione! Che mese, amici! Alla prossima scarica!'''
     #prompt = sub_prompt+classifica
-    testo = get_comment_from_gemini(prompt=prompt)
+    #testo = get_comment_from_gemini(prompt=prompt)
+    testo = prompt
     print(testo)
     asyncio.run(parla_pro(testo, "it-IT-GiuseppeMultilingualNeural"))
     #upload_to_github_api(file_path="audio_cacatorio.mp3",git_name="audio_cacatorio.mp3")

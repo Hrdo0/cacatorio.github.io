@@ -18,10 +18,10 @@ UPLOAD_GIT_FLAG = True
 if __name__ == "__main__":
     # DATETIME.DATETIME(ANNO , MESE, GIORNO)
     data_inizio  = datetime.datetime(year = 2026, month = 4, day = 1)
-    data_fine =  datetime.datetime(year = 2026, month = 4, day = 15)# datetime.datetime.now()
+    data_fine =  datetime.datetime(year = 2026, month = 4, day = 20)# datetime.datetime.now()
     print("Inizializzazione Chat...")
     try:
-        chat = Chat("Chat WhatsApp con cacatorio.txt")
+        chat = Chat("Script/Chat WhatsApp con cacatorio.txt")
         bathroom = Bathroom(data_inizio=data_inizio, data_fine=data_fine, chat=chat)
         
         print("Analyzing data (Flush)...")
