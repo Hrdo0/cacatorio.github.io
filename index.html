@@ -67,6 +67,15 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
+        /* Contenitore per separare più icone nella stessa sidebar */
+        .sidebar-item {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+        }
+
         .sidebar img {
             width: 100%;
             height: auto;
@@ -266,8 +275,15 @@
     <div class="main-container">
         
         <aside class="sidebar">
-            <img src="img/antonio.png" alt="Icona Sinistra">
-            <p>Primo Cacatore™ Insignito 💩 </p>
+            <div class="sidebar-item">
+                <img src="img/antonio.png" alt="Icona Sinistra">
+                <p>Primo Cacatore™ Insignito 💩 </p>
+            </div>
+
+            <div class="sidebar-item">
+                <img src="img\vincitore_pasqua.png" alt="Vincitore Pasqua">
+                <p> 🐣 Vincitor* Edizione Pasquale 🕊️</p>
+            </div>
         </aside>
 
         <div class="content-center">
@@ -282,7 +298,7 @@
 
             <a href="archivio.html" class="archive-btn">ACCEDI ALL'ARCHIVIO 🗃️</a>
 
-            <a href="shit_files/pdf_cacatorio.pdf" target="_blank" class="mobile-btn">CONSULTA IL ROTOLO CACATORIO🧻</a>
+            <a href="shit_files/pdf_cacatorio.pdf" target="_blank" class="mobile-btn">CONSULTA IL ROTOLO CACATORIO 🧻</a>
 
             <div class="pdf-container">
                 <iframe src="shit_files/pdf_cacatorio.pdf#toolbar=0" title="Classifica Cacatoria"></iframe>
@@ -291,8 +307,10 @@
         </div>
 
         <aside class="sidebar">
-            <img src="img/nadia.png" alt="Icona Destra">
-            <p> 🎄Vincitrice Christmas Edition 🎅</p>
+            <div class="sidebar-item">
+                <img src="img/nadia.png" alt="Icona Destra">
+                <p> 🎄Vincitrice Christmas Edition 🎅</p>
+            </div>
         </aside>
 
     </div>
