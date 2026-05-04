@@ -56,7 +56,7 @@ def list_my_models(api_key):
 
 def get_comment_from_gemini(prompt: str) -> str:
     def get_api_key():
-        with open(r"C:\Users\valer\OneDrive\Documenti\GitHub\cacatorio.github.io\Script\api_key.txt", "r") as f:
+        with open(r"C:\Users\valer\OneDrive\Documenti\key\api_key.txt", "r") as f:
             return f.read().strip()
     # gemini-2.5-flash 
     api_key = get_api_key()

@@ -273,7 +273,6 @@ class ShitBarGraph(ShitGraph):
         self.x_values = ["{:02d}".format(num) for num in range(1, 25)]
         self.y_values = [0] * 24
         
-        mesi_inglesi = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"]
 
         if month == "all":
             shits = shitter.getShits()
@@ -301,6 +300,7 @@ class ShitBarGraph(ShitGraph):
         plt.ylabel("Cacate")
         pdf.savefig(bbox_inches='tight', pad_inches=0.3)
         plt.close()
+        return self.y_values
 
 class PieChart(ShitGraph):
 
@@ -342,7 +342,7 @@ def createPdf(bathroom,data_inizio,data_fine,upload = False):
     if upload:
         filename = r"shit_files\pdf_cacatorio.pdf"
     else:
-        filename = f"shit_reports\Shit_Tracker_{today.day}_{today.month}.pdf"
+        filename = rf"Script/shit_reports/Shit_Tracker_{today.day}_{today.month}.pdf"
     
     with PdfPages(filename) as pdf:
         fig, ax = plt.subplots()
@@ -362,6 +362,8 @@ def createPdf(bathroom,data_inizio,data_fine,upload = False):
         gaussian = GaussianChart(data_inizio = data_inizio,data_fine=data_fine,bathroom=bathroom)
         gaussian.addGraph2Pdf(pdf)
 
+        cacate_orarie = {f"{i:02d}": [0,[]] for i in range(1, 25)} # pos 0 cacate per la fascia oraria , pos1 la lista dei cacatori che hanno fatto quel numero per quella fascia oraria
+
         for shitter in bathroom.getShitters():
             if len([shit for shit in shitter.getShits() if data_inizio <= shit.getDateTime(string=False) <= data_fine]) < SHITTER_THRESHOLD:
                 continue
@@ -370,7 +372,36 @@ def createPdf(bathroom,data_inizio,data_fine,upload = False):
             
             current_month_name = getMonthFromDatetime(bathroom.data_fine)
             bargraph = ShitBarGraph(shitter=shitter, data_inizio=data_inizio, data_fine = data_fine, month=current_month_name)
-            bargraph.addGraph2Pdf(pdf)
+           
+
+            cacate_orarie_per_cacatore = bargraph.addGraph2Pdf(pdf)
+
+            
+            for i, conteggio in enumerate(cacate_orarie_per_cacatore):
+                
+
+                ora_key = f"{i + 1:02d}"
+
+                if conteggio == 0:
+                    continue
+                #nuovo recordo per l'ora
+                if conteggio > cacate_orarie[ora_key][0]:
+                    cacate_orarie[ora_key][0] = conteggio
+                    cacate_orarie[ora_key][1] = [shitter.getName()]
+
+                # Pareggio 
+                elif conteggio == cacate_orarie[ora_key][0]:
+                    
+                    if shitter.getName() not in cacate_orarie[ora_key][1]:
+                        cacate_orarie[ora_key][1].append(shitter.getName())
+
+        print(cacate_orarie)
+
+
+
+
+
+
 
         print(f"PDF Creato con Successo: {filename}")
 
