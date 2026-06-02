@@ -35,13 +35,39 @@ Erika : 1
  Giulia Aprea : 1
 La Julia : 1
 '''
+
+
+sub_prompt = '''
+La seguente è una classifica cacatoria, ogni numero corrisponde al numero di cacate che ha fatto una persona nell'arco di un mese,commentala come se fossi un telecronista sportivo particolarmente scurrile e colorito, usa un sacco di parolacce ed eufemismi relativi al gabinetto, non darti freni, sii il piu volgare possibile. 
+Attenzione perchè questo mese è molto particolare, questo mese la vittoria non se la aggiudicherà colui il quale avrà fatto piu cacate bensi chi si è avvicinato di piu al valore della media globale. 
+Nel tuo commento tieni anche conto del numero di cacate effettivo ed evidenzialo.
+Il testo che mi restituirai verrà dato in pasto ad un text-to-speech quindi non usare emoji e non essere particolarmente prolisso, non usare termini inglesi e non usare simboli come "*" o "#":\n
+Ecco la classifica : 
+
+MEDIA GLOBALE 40.83
+ Mota 41
+ Massimiliano 34
+Erika 50
+Maria Frittatina 31
+Martina Stinga 30
+Peppe Catalano 23
+ +39 342 947 2115 22
+Antonio 65
+ giulia Zizzania 65
+Valerio 16
+ Laura Longobardi 14
+Lellino 99
+ 
+Il primo valore è la media globale, gli altri sono in ordine di chi si è avvicinato di piu.
+
+'''
 PROMPT = sub_prompt
 UPLOAD_GIT_FLAG = True
 
 if __name__ == "__main__":
     # DATETIME.DATETIME(ANNO , MESE, GIORNO)
-    data_inizio  = datetime.datetime(year = 2026, month = 4, day = 1)
-    data_fine =  datetime.datetime(year = 2026, month = 4, day = 30)# datetime.datetime.now()
+    data_inizio  = datetime.datetime(year = 2026, month = 5, day = 1)
+    data_fine =  datetime.datetime(year = 2026, month = 5, day = 31)# datetime.datetime.now()
     print("Inizializzazione Chat...")
     try:
         chat = Chat("Script/Chat WhatsApp con cacatorio.txt")
